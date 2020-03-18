@@ -12,18 +12,22 @@ func main() {
 		Age  int
 	}
 
-	john := Person{
+	person1 := Person{
 		"John",
 		12,
 	}
 
-	johnType := reflect.TypeOf(john)
+	a := reflect.Indirect(reflect.ValueOf(person1).FieldByName(reflect.ValueOf(person1).Type().Field(0).Name)).Interface()
+
+	fmt.Println("a->", a) // John
+
+	johnType := reflect.TypeOf(person1)
 	fmt.Println("johnType->", johnType) // main.Person
 
-	johnTypeKind := reflect.TypeOf(john).Kind()
+	johnTypeKind := reflect.TypeOf(person1).Kind()
 	fmt.Println("johnTypeKind->", johnTypeKind) // struct
 
-	value := reflect.ValueOf(john)
+	value := reflect.ValueOf(person1)
 	fmt.Println("ValueOf->", value) // {John 12}
 
 	typeOf := value.Type()
